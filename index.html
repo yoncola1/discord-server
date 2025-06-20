@@ -3,34 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Китай | Discord</title>
-    <!-- Добавлен принудительный сброс стилей GitHub -->
+    <title>中国 - Китай | Discord сервер</title>
     <style>
-        body, html {
-            background-color: #000000 !important;
-            color: #ffffff !important;
-        }
-        .markdown-body, .pl-*, .highlight {
-            background-color: #000000 !important;
-            color: #ffffff !important;
-        }
-    </style>
-    <!-- Основные стили -->
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap');
-        
-        * {
+        body {
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-            background-color: #000000;
-            color: #ffffff;
-        }
-        
-        body {
-            background-color: #000000 !important;
-            color: #ffffff !important;
-            font-family: 'Inter', sans-serif;
+            font-family: Arial, sans-serif;
+            background-color: #000;
+            color: #fff;
             height: 100vh;
             display: flex;
             flex-direction: column;
@@ -39,132 +19,139 @@
             overflow: hidden;
             position: relative;
         }
-        
+
+        .star {
+            position: absolute;
+            background-color: #555;
+            border-radius: 50%;
+            animation: float linear infinite;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) translateX(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(20px);
+                opacity: 0;
+            }
+        }
+
         .container {
             text-align: center;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeIn 1.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+            padding: 2rem;
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
             z-index: 10;
         }
-        
+
         h1 {
-            font-size: 4rem;
+            font-size: 3rem;
             margin-bottom: 2rem;
-            font-weight: 500;
-            text-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
-            color: #ffffff !important;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
         }
-        
-        .admin-info {
-            font-size: 0.8rem;
-            color: rgba(255, 255, 255, 0.5) !important;
-            margin-top: 15px;
-            line-height: 1.4;
-            text-shadow: 0 0 3px rgba(255, 255, 255, 0.05);
-        }
-        
-        .btn {
-            background-color: #000000 !important;
-            color: white !important;
-            border: 2px solid rgba(255, 255, 255, 0.1) !important;
-            padding: 15px 32px;
+
+        .join-btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: #000;
+            color: #fff;
+            text-decoration: none;
+            border: 2px solid #fff;
+            border-radius: 5px;
             font-size: 1.2rem;
-            cursor: pointer;
-            border-radius: 10px;
-            font-weight: 500;
-            transition: all 0.4s ease;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.05) !important;
-        }
-        
-        .easter-egg {
-            position: fixed;
-            right: 10px;
-            bottom: 10px;
-            width: 8px;
-            height: 8px;
-            background: rgba(255, 255, 255, 0.1) !important;
-            border: none;
-            border-radius: 50%;
             cursor: pointer;
-            z-index: 100;
-            opacity: 0.2;
-            transition: all 0.3s ease;
         }
-        
-        /* Остальные стили остаются без изменений */
+
+        .join-btn:hover {
+            background-color: #111;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
+        }
+
+        .join-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                rgba(255, 255, 255, 0) 0%,
+                rgba(255, 255, 255, 0.3) 50%,
+                rgba(255, 255, 255, 0) 100%
+            );
+            animation: light 2.5s infinite;
+        }
+
+        @keyframes light {
+            0% {
+                left: -100%;
+            }
+            100% {
+                left: 100%;
+            }
+        }
+
+        .footer {
+            margin-top: 3rem;
+            font-size: 0.8rem;
+            opacity: 0.7;
+            z-index: 10;
+        }
     </style>
 </head>
 <body>
-    <div id="particles"></div>
-    
     <div class="container">
-        <h1>Китай</h1>
-        <button class="btn" id="joinBtn">Присоединиться</button>
-        <div class="admin-info">
-            Админ: yoncola<br>
-            Помощник: подлий гринго
-        </div>
+        <h1>中国 - Китай</h1>
+        <p>Присоединяйтесь к нашему Discord-серверу</p>
+        <button class="join-btn" id="joinButton">Присоединиться</button>
     </div>
-    
-    <button class="easter-egg" id="easterEgg" title="Сюрприз!"></button>
-    
-    <div id="inviteModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>Присоединиться к серверу</h2>
-            <a href="https://discord.gg/ВАША_ССЫЛКА" class="btn">Перейти</a>
-        </div>
+    <div class="footer">
+        © 2025 Discord сервер "中国 - Китай"
     </div>
-    
+
     <script>
-        // Анимация частиц
-        const canvas = document.createElement('canvas');
-        const ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-        document.getElementById('particles').appendChild(canvas);
-        
-        const particles = [];
-        for (let i = 0; i < 100; i++) {
-            particles.push({
-                x: Math.random() * canvas.width,
-                y: Math.random() * canvas.height,
-                size: Math.random() * 2 + 0.5,
-                speedX: (Math.random() - 0.5) * 0.5,
-                speedY: (Math.random() - 0.5) * 0.5,
-                opacity: Math.random() * 0.2 + 0.05
-            });
+        // Создаем летающие звезды (увеличенные)
+        function createStars() {
+            const count = 25;
+            const body = document.body;
+            
+            for (let i = 0; i < count; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                
+                const size = Math.random() * 2 + 3;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                
+                star.style.left = `${Math.random() * 100}vw`;
+                star.style.top = `${Math.random() * 100}vh`;
+                
+                star.style.opacity = Math.random() * 0.5 + 0.3;
+                
+                const duration = Math.random() * 10 + 10;
+                star.style.animationDuration = `${duration}s`;
+                
+                star.style.animationDelay = `${Math.random() * 10}s`;
+                
+                body.appendChild(star);
+            }
         }
-        
-        function animateParticles() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particles.forEach(p => {
-                p.x += p.speedX;
-                p.y += p.speedY;
-                if (p.x < 0 || p.x > canvas.width) p.speedX *= -1;
-                if (p.y < 0 || p.y > canvas.height) p.speedY *= -1;
-                ctx.fillStyle = `rgba(255, 255, 255, ${p.opacity})`;
-                ctx.beginPath();
-                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-                ctx.fill();
-            });
-            requestAnimationFrame(animateParticles);
-        }
-        animateParticles();
-        
-        // Пасхалка
-        document.getElementById('easterEgg').addEventListener('click', () => {
-            window.open('https://www.youtube.com/watch?v=dQw4w9WgXcQ', '_blank');
+
+        // Открываем ссылку в новом окне
+        document.getElementById('joinButton').addEventListener('click', function() {
+            window.open('https://discord.gg/bKdSV4ubxx', '_blank', 'width=800,height=600');
         });
-        
-        // Модальное окно
-        const modal = document.getElementById("inviteModal");
-        document.getElementById("joinBtn").onclick = () => modal.style.display = "block";
-        document.querySelector(".close").onclick = () => modal.style.display = "none";
-        window.onclick = (e) => { if (e.target == modal) modal.style.display = "none"; };
+
+        // Запускаем создание звезд при загрузке страницы
+        window.onload = createStars;
     </script>
 </body>
 </html>
