@@ -1,157 +1,488 @@
 <!DOCTYPE html>
+<link rel="icon" href="https://example.com/path/to/your-icon.ico" type="image/x-icon">
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>中国 - Китай | Discord сервер</title>
     <style>
-        body {
+        :root {
+            --primary: #5865F2;
+            --dark: #1e1f22;
+            --darker: #121317;
+            --light: #f0f0f0;
+            --accent: #ff5555;
+            --accent2: #55ff55;
+        }
+        
+        * {
             margin: 0;
             padding: 0;
-            font-family: Arial, sans-serif;
-            background-color: #000;
-            color: #fff;
-            height: 100vh;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--dark);
+            color: var(--light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--darker), #2c2f33);
+            padding: 2rem 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,85,85,0.1) 0%, rgba(0,0,0,0) 70%);
+            animation: pulse 15s infinite alternate;
+        }
+        
+        @keyframes pulse {
+            0% { transform: translate(0, 0); }
+            50% { transform: translate(25%, 25%); }
+            100% { transform: translate(-25%, -25%); }
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 1;
             display: flex;
             flex-direction: column;
-            justify-content: center;
             align-items: center;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .star {
-            position: absolute;
-            background-color: #555;
-            border-radius: 50%;
-            animation: float linear infinite;
-        }
-
-        @keyframes float {
-            0% {
-                transform: translateY(0) translateX(0);
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(-100vh) translateX(20px);
-                opacity: 0;
-            }
-        }
-
-        .container {
             text-align: center;
-            padding: 2rem;
-            background-color: rgba(0, 0, 0, 0.7);
-            border-radius: 10px;
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
-            z-index: 10;
         }
-
+        
         h1 {
-            font-size: 3rem;
-            margin-bottom: 2rem;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, var(--accent), var(--accent2));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
         }
-
-        .join-btn {
-            display: inline-block;
-            padding: 12px 30px;
-            background-color: #000;
-            color: #fff;
-            text-decoration: none;
-            border: 2px solid #fff;
-            border-radius: 5px;
+        
+        .subtitle {
             font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 700px;
+            margin-bottom: 2rem;
+        }
+        
+        .invite-btn {
+            display: inline-block;
+            background-color: var(--primary);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
             transition: all 0.3s ease;
-            margin-top: 1rem;
+            box-shadow: 0 4px 15px rgba(88, 101, 242, 0.4);
+            margin-bottom: 2rem;
+        }
+        
+        .invite-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 20px rgba(88, 101, 242, 0.6);
+            background-color: #4752c4;
+        }
+        
+        .server-stats {
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .stat-card {
+            background: rgba(30, 31, 34, 0.7);
+            backdrop-filter: blur(10px);
+            padding: 15px 25px;
+            border-radius: 10px;
+            min-width: 120px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--accent);
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        section {
+            padding: 4rem 0;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
             position: relative;
-            overflow: hidden;
-            cursor: pointer;
         }
-
-        .join-btn:hover {
-            background-color: #111;
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
+        
+        .section-title::after {
+            content: "";
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent), var(--accent2));
+            margin: 10px auto;
+            border-radius: 2px;
         }
-
-        .join-btn::before {
-            content: '';
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .feature-card {
+            background: var(--darker);
+            border-radius: 10px;
+            padding: 30px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--accent);
+        }
+        
+        .feature-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .feature-desc {
+            opacity: 0.8;
+        }
+        
+        .rules {
+            background: var(--darker);
+            padding: 3rem;
+            border-radius: 15px;
+            margin-top: 2rem;
+        }
+        
+        .rule-item {
+            margin-bottom: 1.5rem;
+            padding-left: 1.5rem;
+            border-left: 3px solid var(--accent);
+            position: relative;
+        }
+        
+        .rule-item::before {
+            content: "•";
             position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(
-                90deg,
-                rgba(255, 255, 255, 0) 0%,
-                rgba(255, 255, 255, 0.3) 50%,
-                rgba(255, 255, 255, 0) 100%
-            );
-            animation: light 2.5s infinite;
+            left: -0.5rem;
+            color: var(--accent);
+            font-size: 1.5rem;
         }
-
-        @keyframes light {
-            0% {
-                left: -100%;
-            }
-            100% {
-                left: 100%;
-            }
-        }
-
-        .footer {
+        
+        .staff-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
             margin-top: 3rem;
-            font-size: 0.8rem;
+        }
+        
+        .staff-card {
+            background: var(--darker);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .staff-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .staff-avatar {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-bottom: 3px solid var(--accent);
+        }
+        
+        .staff-info {
+            padding: 20px;
+        }
+        
+        .staff-name {
+            font-size: 1.3rem;
+            margin-bottom: 5px;
+        }
+        
+        .staff-role {
+            color: var(--accent);
+            font-weight: bold;
+            margin-bottom: 15px;
+            display: inline-block;
+            padding: 3px 10px;
+            background: rgba(255, 85, 85, 0.1);
+            border-radius: 50px;
+        }
+        
+        footer {
+            background: var(--darker);
+            padding: 3rem 0;
+            text-align: center;
+            margin-top: 3rem;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .footer-link {
+            color: var(--light);
+            text-decoration: none;
             opacity: 0.7;
-            z-index: 10;
+            transition: opacity 0.3s ease;
+        }
+        
+        .footer-link:hover {
+            opacity: 1;
+        }
+        
+        .copyright {
+            opacity: 0.6;
+            font-size: 0.9rem;
+        }
+        
+        .discord-widget {
+            width: 100%;
+            max-width: 350px;
+            height: 500px;
+            border: none;
+            border-radius: 10px;
+            margin: 2rem auto;
+            display: block;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .features {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Анимации */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        /* Китайские элементы */
+        .chinese-pattern {
+            position: absolute;
+            opacity: 0.03;
+            z-index: 0;
+        }
+        
+        .pattern-1 {
+            top: 10%;
+            left: 5%;
+            font-size: 10rem;
+            transform: rotate(-15deg);
+        }
+        
+        .pattern-2 {
+            bottom: 10%;
+            right: 5%;
+            font-size: 8rem;
+            transform: rotate(15deg);
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>中国 - Китай</h1>
-        <p>Присоединяйтесь к нашему Discord-серверу</p>
-        <button class="join-btn" id="joinButton">Присоединиться</button>
-    </div>
-    <div class="footer">
-        © 2025 Discord сервер "中国 - Китай"
-    </div>
-
-    <script>
-        // Создаем летающие звезды (увеличенные)
-        function createStars() {
-            const count = 25;
-            const body = document.body;
-            
-            for (let i = 0; i < count; i++) {
-                const star = document.createElement('div');
-                star.classList.add('star');
+    <header>
+        <span class="chinese-pattern pattern-1">中国</span>
+        <span class="chinese-pattern pattern-2">中文</span>
+        <div class="container">
+            <div class="header-content">
+                <h1>中国 - Китай</h1>
+                <p class="subtitle">Добро пожаловать на официальный Discord сервер, для друзей и общения. Присоединяйтесь к нашему сообществу!</p>
+                <a href="https://discord.gg/P8JkTVEv2P" class="invite-btn floating">Присоединиться</a>
                 
-                const size = Math.random() * 2 + 3;
-                star.style.width = `${size}px`;
-                star.style.height = `${size}px`;
-                
-                star.style.left = `${Math.random() * 100}vw`;
-                star.style.top = `${Math.random() * 100}vh`;
-                
-                star.style.opacity = Math.random() * 0.5 + 0.3;
-                
-                const duration = Math.random() * 10 + 10;
-                star.style.animationDuration = `${duration}s`;
-                
-                star.style.animationDelay = `${Math.random() * 10}s`;
-                
-                body.appendChild(star);
-            }
-        }
-
-        // Открываем ссылку в новом окне
-        document.getElementById('joinButton').addEventListener('click', function() {
-            window.open('https://discord.gg/bKdSV4ubxx', '_blank', 'width=800,height=600');
-        });
-
-        // Запускаем создание звезд при загрузке страницы
-        window.onload = createStars;
-    </script>
+                <div class="server-stats">
+                    <div class="stat-card">
+                        <div class="stat-value">21</div>
+                        <div class="stat-label">Участников</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">46</div>
+                        <div class="stat-label">Каналов</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">24/7</div>
+                        <div class="stat-label">Активность(Не всегда)</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">98+</div>
+                        <div class="stat-label">Средний IQ</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <section id="about">
+        <div class="container">
+            <h2 class="section-title">О нашем сервере</h2>
+            <div class="features">
+                <div class="feature-card">
+                    <div class="feature-icon">🇨🇳</div>
+                    <h3 class="feature-title">Китайская культура</h3>
+                    <p class="feature-desc">Китайский флаг партии на сервере</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📚</div>
+                    <h3 class="feature-title">Изучение языка</h3>
+                    <p class="feature-desc">Админ изучает С++(не заметно похвасталсья)</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎎</div>
+                    <h3 class="feature-title">Мероприятия</h3>
+                    <p class="feature-desc">Админы раки, даже это плюс</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="widget" style="background: var(--darker);">
+        <div class="container">
+            <h2 class="section-title">Присоединяйтесь прямо сейчас</h2>
+            <iframe src="https://discord.com/widget?id=1365015225870581870&theme=dark" class="discord-widget" allowtransparency="true" frameborder="0"></iframe>
+        </div>
+    </section>
+    
+    <section id="rules">
+        <div class="container">
+            <h2 class="section-title">Правила сервера</h2>
+            <div class="rules">
+                <div class="rule-item">
+                    <h3>Уважение к другим</h3>
+                    <p>Будьте вежливы и уважительны ко всем участникам. Оскорбления, расизм, сексизм и любая дискриминация запрещены.</p>
+                </div>
+                <div class="rule-item">
+                    <h3>Запрещенный контент</h3>
+                    <p>Не размещайте NSFW, политические обсуждения, рекламу и другой запрещенный контент.</p>
+                </div>
+                <div class="rule-item">
+                    <h3>Спам и флуд</h3>
+                    <p>Избегайте спама, флуда и чрезмерного использования капса. Давайте всем возможность общаться комфортно.</p>
+                </div>
+                <div class="rule-item">
+                    <h3>Обман</h3>
+                    <p>Запрещено мошенничество - обман с целью получения выгоды для себя / другого человека.</p>
+                </div>
+                <div class="rule-item">
+                    <h3>Слушайте модераторов</h3>
+                    <p>Решения модераторов и администрации окончательны. Если у вас есть вопросы, обращайтесь в личные сообщения.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="staff">
+        <div class="container">
+            <h2 class="section-title">Наша тима раков</h2>
+            <div class="staff-grid">
+                <div class="staff-card">
+                    <img src="https://cdn.discordapp.com/avatars/123456789012345678/a_abcdef1234567890abcdef1234567890.webp?size=256" alt="Основатель" class="staff-avatar">
+                    <div class="staff-info">
+                        <h3 class="staff-name">Основатель</h3>
+                        <span class="staff-role">yoncola</span>
+                        <p>Создатель и главный организатор сервера</p>
+                    </div>
+                </div>
+                <div class="staff-card">
+                    <img src="https://cdn.discordapp.com/avatars/234567890123456789/a_abcdef1234567890abcdef1234567890.webp?size=256" alt="Модератор" class="staff-avatar">
+                    <div class="staff-info">
+                        <h3 class="staff-name">Модераторы</h3>
+                        <span class="staff-role">wsq_virtuos, erondondon0638</span>
+                        <p>Следят за порядком и помогают участникам</p>
+                    </div>
+                </div>
+                <div class="staff-card">
+                    <img src="https://cdn.discordapp.com/avatars/345678901234567890/a_abcdef1234567890abcdef1234567890.webp?size=256" alt="Преподаватель" class="staff-avatar">
+                    <div class="staff-info">
+                        <h3 class="staff-name">Фуриеб</h3>
+                        <span class="staff-role">sigma_criper21121</span>
+                        <p>Ебет фурри 24/7</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="#about" class="footer-link">О сервере</a>
+                <a href="#rules" class="footer-link">Правила</a>
+                <a href="#staff" class="footer-link">Команда</a>
+                <a href="https://discord.gg/P8JkTVEv2P" class="footer-link">Приглашение</a>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>
